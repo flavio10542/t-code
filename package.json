@@ -1,0 +1,85 @@
+{
+  "name": "t-code-secure-agent",
+  "displayName": "T-Code Secure Agent",
+  "description": "Secure AI development assistant for corporate IDE environments using an internal LLM.",
+  "version": "0.1.0",
+  "publisher": "T-Systems",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onCommand:tcode.generate",
+    "onCommand:tcode.review",
+    "onCommand:tcode.explain",
+    "onCommand:tcode.tests"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "T-Code",
+      "properties": {
+        "tcode.endpoint": {
+          "type": "string",
+          "description": "Internal T-Code LLM endpoint. Use an internal corporate URL only.",
+          "default": "https://t-code-llm.internal.example/v1/chat/completions"
+        },
+        "tcode.model": {
+          "type": "string",
+          "description": "Internal model identifier.",
+          "default": "corporate-coder"
+        },
+        "tcode.apiKey": {
+          "type": "string",
+          "description": "Optional API key. Prefer VS Code SecretStorage or corporate identity authentication.",
+          "default": ""
+        },
+        "tcode.temperature": {
+          "type": "number",
+          "default": 0.2,
+          "minimum": 0,
+          "maximum": 2
+        },
+        "tcode.maxTokens": {
+          "type": "number",
+          "default": 2000,
+          "minimum": 100,
+          "maximum": 16000
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "tcode.generate",
+        "title": "T-Code: Generate Code"
+      },
+      {
+        "command": "tcode.review",
+        "title": "T-Code: Security Review"
+      },
+      {
+        "command": "tcode.explain",
+        "title": "T-Code: Explain Selection"
+      },
+      {
+        "command": "tcode.tests",
+        "title": "T-Code: Generate Tests"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npm run compile && npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.5.0",
+    "@vscode/vsce": "^3.0.0"
+  }
+}
